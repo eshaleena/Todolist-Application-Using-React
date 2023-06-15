@@ -1,24 +1,49 @@
-import React from "react";
+import React, {useState} from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
 
 //create your first component
+
 const Home = () => {
+	const [task,setTask] = useState("")
+	const [toDos,setToDos] = useState(["Do laundry","Cook dinner","Pick up around the house"])
+
+	let toDo = toDos.map((item,index)=>{
+		return(
+			<li key={index}>
+				{item}
+				<div
+                style={{float:"right"}}
+				onClick={()=>removeToDo(index)}
+				>x</div>
+			</li>
+		)
+	})
+	const removeToDo=(index)=>{
+		const newArray = toDos.filter((item,i)=>i !== index)
+		setToDos(newArray)
+	}
+	const newToDo = (onKeyDownEvent) => {
+		if(onKeyDownEvent.key=== "Enter"){
+			const newToDo = [...toDos,task]
+			setToDos(newToDos)
+			setTask("")
+		}
+	}
 	return (
 		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+        <h1>newToDos</h1>
+		<div>
+			<input
+            placeholder="addToDo"
+			value={task}
+			onChange={(e)=> setTask(e.target.value)}
+			onKeyDown={newToDo}
+			></input>
+		</div>
+		<ul className="task">{todo}</ul>
+		  <div className="remaining">{todo.length} items left</div>
 		</div>
 	);
 };
