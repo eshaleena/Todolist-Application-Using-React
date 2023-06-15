@@ -42,8 +42,8 @@ const Home = () => {
 			onKeyDown={newToDo}
 			></input>
 		</div>
-		<ul className="task">{todo}</ul>
-		  <div className="remaining">{todo.length} items left</div>
+		<ol className="task">{toDos}</ol>
+		  <div className="remaining">{toDos.length} items left</div>
 		</div>
 	);
 };
